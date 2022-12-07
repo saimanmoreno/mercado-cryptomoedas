@@ -1,4 +1,4 @@
-# vue-coingecko-api
+# Mercado de Crypto com Vue.js
 
 ## Project setup
 ```
