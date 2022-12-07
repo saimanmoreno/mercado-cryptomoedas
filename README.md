@@ -1,6 +1,6 @@
 # Mercado de Crypto com Vue.js
 
-![alt text](https://github.com/saimanmoreno/mercado-cryptomoedas/blob/main/image.PNG?raw=true)
+![alt text](https://github.com/saimanmoreno/mercado-cryptomoedas/blob/main/public/image.PNG)
 
 ## Project setup
 ```
