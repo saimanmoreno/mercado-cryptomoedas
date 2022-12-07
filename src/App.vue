@@ -1,7 +1,25 @@
 <template>
   <div class="container">
     <div class="row">
-      <h1 class="p-2">Mercado de Crypto com Vue.js</h1>
+      <h1 class="pt-5 text-center">Mercado de Crypto</h1>
+      <span class="text-end">by @thesimmons</span>
+
+      <input
+        type="text"
+        class="
+          form-control
+          bg-dark
+          text-light
+          rounded-0
+          border-0
+          my-4
+          border-secondary
+        "
+        placeholder="Search Coin"
+        @keyup="searchCoin()"
+        v-model="textSearch"
+      />
+
       <table class="table table-dark">
         <thead>
           <tr>
@@ -11,7 +29,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(coin, index) in coins" :key="coin.id">
+          <tr v-for="(coin, index) in filterCoins" :key="coin.id">
             <td class="text-muted">
               {{ index + 1 }}
             </td>
@@ -24,15 +42,17 @@
                 {{ coin.symbol }}
               </span>
             </td>
-            <td>
-              $ {{coin.current_price}}
+            <td>$ {{ coin.current_price }}</td>
+            <td
+              :class="[
+                coin.price_change_percentage_24h > 0
+                  ? 'text-success'
+                  : 'text-danger',
+              ]"
+            >
+              {{ coin.price_change_percentage_24h }}%
             </td>
-            <td>
-              {{coin.price_change_percentage_24h}}%
-            </td>
-            <td>
-              $ {{coin.total_volume}}
-            </td>
+            <td>$ {{ coin.total_volume.toLocaleString() }}</td>
           </tr>
         </tbody>
       </table>
@@ -46,7 +66,9 @@ export default {
   data() {
     return {
       coins: [],
+      filterCoins: [],
       titles: ["#", "Coin", "Price", "Price Change", "24h Volume"],
+      textSearch: "",
     };
   },
   async mounted() {
@@ -54,7 +76,16 @@ export default {
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
     );
     const data = await res.json();
-    this.coins = data;
+    this.coins = this.filterCoins = data;
+    
+  },
+  methods: {
+    searchCoin() {
+      this.filterCoins = this.coins.filter((coin) =>
+        coin.name.toLowerCase().includes(this.textSearch.toLowerCase()) ||
+        coin.symbol.toLowerCase().includes(this.textSearch.toLowerCase())
+      );
+    },
   },
 };
 </script>
