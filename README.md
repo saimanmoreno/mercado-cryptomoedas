@@ -1,5 +1,7 @@
 # Mercado de Crypto com Vue.js
 
+![alt text](https://github.com/saimanmoreno/mercado-cryptomoedas/blob/main/image.PNG?raw=true)
+
 ## Project setup
 ```
 npm install
@@ -22,3 +24,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
